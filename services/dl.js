@@ -60,19 +60,34 @@ async function parse(url) {
     app_cap_img_url
   }
   let lines = []
+  let skip = 0
   $(".entry-content").children().each(function () {
+    if (skip++ < 3) {
+      return true
+    }
     var text = $(this).text()
-    if (this.name.toUpperCase() != 'DIV' && text.length > 0) {
-      lines.push([text, this.name])
+    var tag = this.name.toLowerCase()
+    
+    if (text.length > 0 && tag != 'div' ) {
+      if (tag == 'ol') {
+        lines.push([$(this).html(), this.name, false])
+      } else {
+        lines.push([text, this.name, true])
+      }
     }
   })
 
-  const res = await translate(lines.map(r => r[0]).join('\n'), { to: 'zh-cn'})
+  const res = await translate(lines.filter(r => r[2]).map(r => r[0]).join('\n'), { to: 'zh-cn'})
   const translatedLines = res.text.split('\n')
   
-  item.introduce = translatedLines.map((r, i) => {
-    const tag = lines[i][1]
-    return `<${tag}>${r}</${tag}>`
+  let n = 0;
+  item.introduce = lines.map((r, i) => {
+    let html = r[0]
+    if (r[2]) {
+      html = translatedLines[n++]
+    }
+    const tag = r[1]
+    return `<${tag}>${html}</${tag}>`
   }).join('')
 
   return item
