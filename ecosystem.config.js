@@ -29,7 +29,10 @@ module.exports = {
       ref  : 'origin/master',
       repo : 'git@github.com:hAtvis/mac-torrent-api.git',
       path : '/var/www/mt/api',
-      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production --port 8080'
+      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production',
+      env: {
+        PORT: 8080
+      }
     },
     dev : {
       user : 'node',
