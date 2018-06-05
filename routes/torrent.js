@@ -16,4 +16,8 @@ router.get('/items', async ctx => {
   ctx.body = items
 })
 
+router.post('/test', async ctx => {
+  ctx.body = 'test post'
+})
+
 module.exports = router

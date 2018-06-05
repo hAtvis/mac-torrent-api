@@ -1,5 +1,5 @@
-var koa = require('koa')
-var app = new koa()
+var Koa = require('koa')
+var app = new Koa()
 var router = require('./router')
 
 const handler = async (ctx, next) => {
@@ -17,9 +17,9 @@ app.use(handler)
 
 router(app)
 
-app.use(async ctx => {
-  ctx.body = 'hello,world'
-})
+// app.use(async ctx => {
+//   ctx.body = 'hello,world'
+// })
 
 app.listen(3001, () => {
   console.log('listening on 3001')
