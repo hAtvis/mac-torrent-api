@@ -9,7 +9,17 @@ var md = require('../services/md')
 
 router.post('/md', bodyParser(), async ctx => {
   const reqBody = ctx.request.body
-  md.generate('post', reqBody.title, reqBody)
+  const markdown = await md.convert('post', reqBody)
+  ctx.body = {
+    rc: 0,
+    message: 'Success',
+    data: markdown
+  }
+})
+
+router.post('/save', bodyParser(), async ctx => {
+  const reqBody = ctx.request.body
+  md.saveToFile(reqBody.title, reqBody.markdown)
   ctx.body = {
     rc: 0,
     message: 'Success'
