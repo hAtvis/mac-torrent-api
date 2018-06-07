@@ -1,7 +1,7 @@
 var router = require('koa-router')({
-  prefix: '/mt'
+  prefix: '/api'
 })
 module.exports = function(app) {
-  router.use(require('./routes/torrent').routes(), require('./routes/g').routes())
+  router.use(require('./routes/s').routes(), require('./routes/g').routes())
   app.use(router.routes())
 }
