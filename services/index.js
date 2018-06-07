@@ -11,15 +11,15 @@ function wrapper(channelName) {
   const impls = require(`./${channelName}`)
 
   function parse(url) {
-    return impls.parse(url)
+    return impls.parse(url, channel)
   }
 
   function latest() {
-    return impls.latest(channel.home_url)
+    return impls.latest(channel.home_url, channel)
   }
 
   function search() {
-    return impls.search(channel.search_url)
+    return impls.search(channel.search_url, channel)
   }
 
   return {

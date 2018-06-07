@@ -3,14 +3,16 @@ var router = require('koa-router')({
 })
 var serviceFactory = require('../services')
 
-router.get('/item/:url', async ctx => {
+router.get('/:channel/item/:url', async ctx => {
   const url = ctx.params.url
+  const ss = serviceFactory(ctx.params.channel)
   const item = await ss.parse(url)
   ctx.body = item
 })
 
-router.get('/items', async ctx => {
-  const ss = serviceFactory()
+router.get('/:channel/items', async ctx => {
+  const channel = ctx.params.channel
+  const ss = serviceFactory(channel)
   const items = await ss.latest()
   ctx.body = items
 })

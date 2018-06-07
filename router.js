@@ -1,5 +1,5 @@
 var router = require('koa-router')({
-  prefix: '/api'
+  prefix: '/macapi'
 })
 module.exports = function (app) {
   router.use(
