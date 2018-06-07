@@ -12,3 +12,5 @@ router.get('/', async ctx => {
     desc,
   }))
 })
+
+module.exports = router
