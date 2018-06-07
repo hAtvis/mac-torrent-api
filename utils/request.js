@@ -8,18 +8,40 @@ const { md5 } = crypto
 const cacheDir = path.resolve(__dirname + '/../static/caches')
 
 
-module.exports = async function(url, options) {
+module.exports = async function (url, options) {
 
+  options = options || {}
   const key = md5(url)
   const filepath = path.join(cacheDir, key)
-  if (fs.existsSync(filepath)) {
-    return fs.readFileSync(filepath)
-  } else {
-    const res = await fetch(url, options)
-    const html = await res.text()
-
-    fs.writeFileSync(filepath, html)
-
-    return html
+  if (typeof options.cache == 'boolean') {
+    options.cache = {
+      expire: Date.now() + 10 * 86400 * 365 * 1000
+    }
+  } else if (typeof options.cache == 'number') {
+    options.cache = {
+      expire: Date.now() + options.cache * 1000,
+    }
+  } else if (typeof options.cache == 'object') {
+    options.cache = {
+      expire: Date.now() + options.cache.expire * 1000
+    }
   }
+  if (options.cache) {
+    if (fs.existsSync(filepath)) {
+      const cached = JSON.parse(fs.readFileSync(filepath))
+      if (cached.expire > Date.now()) {
+        return cached.html
+      }
+    }
+  }
+
+  const res = await fetch(url, options)
+  const html = await res.text()
+
+  if (options.cache) {
+    const fileData = { expire: options.cache.expire, html}
+    fs.writeFileSync(filepath, JSON.stringify(fileData))
+  }
+
+  return html
 }

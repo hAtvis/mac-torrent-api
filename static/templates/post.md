@@ -2,8 +2,10 @@
 title: <%= title %>
 date: <%= create_on %>
 tags:
-categories: [<%= cat %>]
-photos:
+categories: [Mac,<%= cat %>]
+photos: ![](<%= img_url %>)
+size: <%= size %>
+hash: <%= hashcode %>
 ---
 
 

@@ -3,7 +3,7 @@ var cheerio = require('cheerio')
 var translate = require("google-translate-api")
 
 async function latest() {
-  const htmlBody = await request('https://mac-torrent-download.net/')
+  const htmlBody = await request('https://mac-torrent-download.net/', { cache: 86400 })
   const $ = cheerio.load(htmlBody)
 
   const items =  []
@@ -29,7 +29,7 @@ async function latest() {
 }
 
 async function parse(url) {
-  const htmlBody = await request(url)
+  const htmlBody = await request(url, { cache: true })
   const $ = cheerio.load(htmlBody)
 
   var title = $(".entry-title").text()
