@@ -15,12 +15,14 @@
     "cheerio": "^1.0.0-rc.2",
     "ejs": "^2.6.1",
     "google-translate-api": "^2.3.0",
+    "http-proxy-agent": "^2.1.0",
     "isomorphic-fetch": "^2.2.1",
     "koa": "^2.5.1",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
     "koa-static": "^4.0.3",
     "query-string": "^6.1.0",
+    "socks5-node-fetch": "0.0.4",
     "turndown": "^4.0.2"
   }
 }

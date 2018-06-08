@@ -35,6 +35,13 @@ module.exports = async function (url, options) {
     }
   }
 
+  // const wrappedFetch = require('socks5-node-fetch')
+ 
+  // const fetch = wrappedFetch({
+  //   socksHost: 'localhost',
+  //   socksPort: '1086'
+  // })
+
   const res = await fetch(url, options)
   const html = await res.text()
 
