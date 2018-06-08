@@ -21,4 +21,12 @@ router.post('/test', async ctx => {
   ctx.body = 'test post'
 })
 
+router.get('/:channel/search', async ctx => {
+  const channel = ctx.params.channel
+  const ss = serviceFactory(channel)
+  const keyword = ctx.query.s
+  const items = await ss.search(keyword)
+  ctx.body = items
+})
+
 module.exports = router

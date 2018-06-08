@@ -15,11 +15,11 @@ function wrapper(channelName) {
   }
 
   function latest() {
-    return impls.latest(channel.home_url, channel)
+    return impls.latest(channel)
   }
 
-  function search() {
-    return impls.search(channel.search_url, channel)
+  function search(keyword) {
+    return impls.search(keyword, channel)
   }
 
   return {
